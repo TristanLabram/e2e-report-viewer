@@ -8,6 +8,13 @@
     <h2>Test Reports</h2>
 
     <div class="d-flex gap-2">
+        <form method="post" action="{% url 'sync_reports' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-sm">
+                Sync Reports
+            </button>
+        </form>
+
         {% if user.is_admin%}
             {% if show_all %}
                 <a href="?show=current" class"btn btn-outline-secondary btn-sm">
