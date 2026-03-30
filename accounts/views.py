@@ -1,9 +1,26 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import ProfileForm, UserCreateForm, UserEditForm
+from .forms import ProfileForm, RegistrationForm, UserCreateForm, UserEditForm
 from .models import CustomUser
 from .decorators import admin_required
+
+# PUBLIC Registration form
+def register_view(request):
+    #If already logged in then redirect to "avoid" allowing non admins the ability to create new accounts
+    if request.user.is_authenticated:
+        return redirect('report_list')
+    
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account created. You can now log in.')
+            return redirect('login')
+    else:
+        form = RegistrationForm()
+
+    return render(request, 'accounts/register.html', {'form': form})
 
 # View and edit user profile information, requires logon ([Authorize] in C#)
 @login_required

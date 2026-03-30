@@ -10,6 +10,11 @@ urlpatterns = [
         name="login",
     ),
     path(
+        'register/',
+        views.register_view,
+        name='register'
+    ),
+    path(
         'logout/',
         LogoutView.as_view(),
         name="logout",
@@ -27,8 +32,24 @@ urlpatterns = [
         ),
         name="password_change",
     ),
-    path('users/', views.user_list, name='user_list'),
-    path('users/create/', views.user_create, name='user_create'),
-    path('users/<int:pk>/edit/', views.user_edit, name='user_edit'),
-    path('users/<int:pk>/delete/', views.user_delete, name='user_delete'),
+    path(
+        'users/',
+        views.user_list,
+        name='user_list'
+    ),
+    path(
+        'users/create/', 
+        views.user_create,
+        name='user_create'
+    ),
+    path(
+        'users/<int:pk>/edit/',
+        views.user_edit,
+        name='user_edit'
+    ),
+    path(
+        'users/<int:pk>/delete/',
+        views.user_delete,
+        name='user_delete'
+    ),
 ]

@@ -93,3 +93,41 @@ class UserEditForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+# Public registration form
+class RegistrationForm(forms.ModelForm):
+    password1 = forms.CharField(
+        label='Password',
+        widget=forms.PasswordInput,
+        help_text='Must be at least 8 characters.',
+    )
+    password2 = forms.CharField(
+        label='Confirm Password',
+        widget=forms.PasswordInput,
+    )
+    is_admin = forms.BooleanField(
+        label='Admin account',
+        required=False,
+        help_text='Check this to create an admin account.',
+    )
+
+    class Meta:
+        model = CustomUser
+        fields = ['email', 'first_name', 'last_name']
+
+    def clean_email(self):
+        return clean_email_helper(self.cleaned_data.get('email'), self.instance.pk)
+    
+    def clean_password2(self):
+        return clean_password2_helper(
+            self.cleaned_data.get('password1'),
+            self.cleaned_data.get('password2'),
+        )
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password1'])
+        user.role = 'admin' if self.cleaned_data.get('is_admin') else 'viewer'
+        if commit:
+            user.save()
+        return user
