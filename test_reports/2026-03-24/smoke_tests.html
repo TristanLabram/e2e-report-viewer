@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smoke Tests — 2026-03-24</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; color: #333; }
+        h1 { border-bottom: 2px solid #28a745; padding-bottom: 0.5rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #dee2e6; padding: 0.5rem 0.75rem; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .pass { color: #28a745; font-weight: bold; }
+        .fail { color: #dc3545; font-weight: bold; }
+        .summary { margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Smoke Test Report — 24 March 2026</h1>
+    <p>Run started: 08:15:03 UTC &bull; Duration: 1m 23s &bull; Environment: Staging</p>
+
+    <table>
+        <thead>
+            <tr><th>Test Case</th><th>Module</th><th>Duration</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Homepage loads within 2s</td><td>UI</td><td>0.8s</td><td class="pass">PASS</td></tr>
+            <tr><td>Login with valid credentials</td><td>Auth</td><td>1.2s</td><td class="pass">PASS</td></tr>
+            <tr><td>Login with invalid credentials shows error</td><td>Auth</td><td>0.9s</td><td class="pass">PASS</td></tr>
+            <tr><td>Dashboard widgets render</td><td>UI</td><td>2.1s</td><td class="pass">PASS</td></tr>
+            <tr><td>API health endpoint returns 200</td><td>API</td><td>0.3s</td><td class="pass">PASS</td></tr>
+            <tr><td>Logout clears session</td><td>Auth</td><td>1.0s</td><td class="pass">PASS</td></tr>
+        </tbody>
+    </table>
+
+    <div class="summary">
+        <strong>Summary:</strong> 6 passed, 0 failed, 0 skipped — <span class="pass">ALL PASSED</span>
+    </div>
+</body>
+</html>

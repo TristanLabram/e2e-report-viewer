@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Integration Tests — 2026-03-23</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; color: #333; }
+        h1 { border-bottom: 2px solid #ffc107; padding-bottom: 0.5rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #dee2e6; padding: 0.5rem 0.75rem; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .pass { color: #28a745; font-weight: bold; }
+        .fail { color: #dc3545; font-weight: bold; }
+        .skip { color: #ffc107; font-weight: bold; }
+        .summary { margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; }
+        .error-detail { background: #fff3f3; padding: 0.75rem; margin-top: 0.5rem; border-left: 3px solid #dc3545; font-family: monospace; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <h1>Integration Test Report — 23 March 2026</h1>
+    <p>Run started: 10:00:00 UTC &bull; Duration: 8m 32s &bull; Environment: Staging</p>
+
+    <table>
+        <thead>
+            <tr><th>Test Case</th><th>Module</th><th>Duration</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>User registers and receives welcome email</td><td>Auth → Email</td><td>5.2s</td><td class="pass">PASS</td></tr>
+            <tr><td>Order placed triggers inventory update</td><td>Orders → Inventory</td><td>3.8s</td><td class="pass">PASS</td></tr>
+            <tr>
+                <td>
+                    Payment failure triggers order rollback
+                    <div class="error-detail">
+                        TimeoutError: Stripe sandbox did not respond within 10s<br>
+                        at test_payment_integration.py:88 in test_payment_rollback
+                    </div>
+                </td>
+                <td>Payments → Orders</td><td>10.1s</td><td class="fail">FAIL</td>
+            </tr>
+            <tr><td>Shipping label generated after payment</td><td>Payments → Shipping</td><td>4.6s</td><td class="pass">PASS</td></tr>
+            <tr><td>Admin dashboard reflects new orders</td><td>Orders → Admin</td><td>2.9s</td><td class="skip">SKIP</td></tr>
+        </tbody>
+    </table>
+
+    <div class="summary">
+        <strong>Summary:</strong> 3 passed, 1 failed, 1 skipped — <span class="fail">FAILURES DETECTED</span>
+    </div>
+</body>
+</html>
