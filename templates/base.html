@@ -12,7 +12,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'profile' %}">E2E Report Viewer</a>
+            <a class="navbar-brand" href="{% url 'report_list' %}">E2E Report Viewer</a>
 
             <button class="navbar-toggler" type="button"
                     data-bs-toggle="collapse"
@@ -23,9 +23,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 {% if user.is_authenticated %}
                     <ul class="navbar-nav me-auto">
-                        {% comment %} <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'report_list' %}">Reports</a>
-                        </li> {% endcomment %}
+                        </li>
                         {% comment %} {% if user.is_admin %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'user_list' %}">User Management</a>

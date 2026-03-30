@@ -10,11 +10,11 @@
     <div class="d-flex gap-2">
         {% if user.is_admin%}
             {% if show_all %}
-                <a href"?show=current" class"btn btn-outline-secondary btn-sm">
+                <a href="?show=current" class"btn btn-outline-secondary btn-sm">
                     Show Current Only
                 </a>
             {% else %}
-                <a href"?show=all" class"btn btn-outline-secondary btn-sm">
+                <a href="?show=all" class"btn btn-outline-secondary btn-sm">
                     Show All (incl. Archived)
                 </a>
             {% endif %}
@@ -32,12 +32,12 @@
                             data-bs-toggle="collapse"
                             data-bs-target="#date-{{ group.grouper|date:'Y-m-d'}}">
                         {% comment "l is weekday name, j is day of month, F is full month name, Y four digit year" %}{% endcomment %}
-                        {{ group.grouper| date: 'l, j F Y'}}
+                        {{ group.grouper|date:'l, j F Y'}}
                         <span class="badge bg-secondary ms-2">{{group.list|length}}</span>
                     </button>
                 </h2>
 
-                <div id="date-{{ group.grouper|date: 'Y-m-d' }}"
+                <div id="date-{{ group.grouper|date:'Y-m-d' }}"
                     class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
                     data-bs-parent="#reportAccordion">
                     <div class="accordion-body p-0">
