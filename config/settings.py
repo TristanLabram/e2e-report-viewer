@@ -113,7 +113,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/report_list' #Change to report_list once that page is ready!!!
+LOGIN_REDIRECT_URL = 'report_list' #Change to report_list once that page is ready!!!
 LOGOUT_REDIRECT_URL = 'login'
 
 REPORT_STORAGE_ROOT = os.environ.get(

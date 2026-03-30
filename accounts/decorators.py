@@ -16,5 +16,5 @@ def admin_required(view_func):
         if not request.user.is_admin:
             messages.error(request, 'You do not have the required permissions to access this page.')
             return redirect('report_list')
-        return view_func(request, *args, *kwargs)
+        return view_func(request, *args, **kwargs)
     return wrapper

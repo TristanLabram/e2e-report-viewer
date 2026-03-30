@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Delete User - E2E Test Viewer{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <h2 class="mb-4">Delete User</h2>
+
+        <div class="card border-danger">
+            <div class="card-body">
+                <p>Are you sure you want to delete thie following user?</p>
+
+                <dl class="mb-4">
+                    <dt>Name</dt>
+                    <dd>{{ user.first_name }} {{ user.last_name }}</dd>
+
+                    <dt>Email</dt>
+                    <dd>{{ user.email }}</dd>
+
+                    <dt>Role</dt>
+                    <dd>{{ user.get_role_display }}</dd>
+                </dl>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-danger">
+                            Yes, delete this user
+                        </button>
+                        <a href="{% url 'user_list' %}" class=" btn btn-outline-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

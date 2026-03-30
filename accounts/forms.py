@@ -1,7 +1,21 @@
 from django import forms
 from .models import CustomUser
 
-# User profile form functions for validating user data
+def clean_email_helper(email, pk):
+    if (
+        CustomUser.objects.filter(email=email)
+            .exclude(pk=pk)
+            .exists()
+    ):
+        raise forms.ValidationError("A user with this email already exists.")
+    return email
+
+def clean_password2_helper(p1, p2):
+    if p1 and p2 and p1 != p2:
+        raise forms.ValidationError('Passwords do not match.')
+    return p2
+
+# User profile form for editing own user profile
 class ProfileForm(forms.ModelForm):
     # Meta data to attach the right model to the forms
     class Meta:
@@ -10,12 +24,72 @@ class ProfileForm(forms.ModelForm):
     
     # Function to clean and validate the user email input
     def clean_email(self):
-        email = self.cleaned_data.get('email')
-        # Check the email is unique to the current user
-        if (
-            CustomUser.objects.filter(email=email)
-                .exclude(pk=self.instance.pk)
-                .exists()
-        ):
-            raise forms.ValidationError("A user with this email already exists.")
-        return email
+        return clean_email_helper(self.cleaned_data.get('email'), self.instance.pk)
+    
+#Form for admins to create new users
+class UserCreateForm(forms.ModelForm):
+    #Define custom password fields to avoid django's built in UserCreationForm which requires a username
+    password1 = forms.CharField(
+        label='Password',
+        widget=forms.PasswordInput,
+        help_text="Must be at least 8 characters",
+    )
+    password2 = forms.CharField(
+        label="Confirm password",
+        widget=forms.PasswordInput,
+    )
+
+    class Meta:
+        model = CustomUser
+        fields = ['email', 'first_name', 'last_name', 'role']
+
+    def clean_email(self):
+        return clean_email_helper(self.cleaned_data.get('email'), self.instance.pk)
+    
+    def clean_password2(self):
+        return clean_password2_helper(self.cleaned_data.get('password1'), self.cleaned_data.get('password2'))
+    
+    #Override the inherited Django save method to force password hashing
+    def save(self, commit=True):
+        #Create the new user without saving
+        user = super().save(commit=False)
+
+        user.set_password(self.cleaned_data['password1'])
+        if commit:
+            user.save()
+        return user
+    
+# Form to edit existing users
+class UserEditForm(forms.ModelForm):
+    password1 = forms.CharField(
+        label="New Password",
+        widget=forms.PasswordInput,
+        required=False,
+        help_text="Leave blank to keep the current password.",
+    )
+    password2 = forms.CharField(
+        label="Confirm new password",
+        widget=forms.PasswordInput,
+        required=False,
+    )
+
+    class Meta:
+        model = CustomUser
+        fields = ['email', 'first_name', 'last_name', 'role']
+
+    def clean_email(self):
+        return clean_email_helper(self.cleaned_data.get('email'), self.instance.pk)
+    
+    def clean_password2(self):
+        return clean_password2_helper(self.cleaned_data.get('password1'), self.cleaned_data.get('password2'))
+    
+    #Override the inherited Django save method to force password hashing
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        #Only update password if a new one was entered
+        p1 = self.cleaned_data.get('password1')
+        if p1:
+            user.set_password(p1)
+        if commit:
+            user.save()
+        return user

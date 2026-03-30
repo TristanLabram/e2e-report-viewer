@@ -1,5 +1,3 @@
-from ast import Pass
-from django import template
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from . import views
@@ -29,4 +27,8 @@ urlpatterns = [
         ),
         name="password_change",
     ),
+    path('users/', views.user_list, name='user_list'),
+    path('users/create/', views.user_create, name='user_create'),
+    path('users/<int:pk>/edit/', views.user_edit, name='user_edit'),
+    path('users/<int:pk>/delete/', views.user_delete, name='user_delete'),
 ]
