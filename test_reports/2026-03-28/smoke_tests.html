@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smoke Tests — 2026-03-28</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; color: #333; }
+        h1 { border-bottom: 2px solid #dc3545; padding-bottom: 0.5rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #dee2e6; padding: 0.5rem 0.75rem; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .pass { color: #28a745; font-weight: bold; }
+        .fail { color: #dc3545; font-weight: bold; }
+        .summary { margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; }
+        .error-detail { background: #fff3f3; padding: 0.75rem; margin-top: 0.5rem; border-left: 3px solid #dc3545; font-family: monospace; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <h1>Smoke Test Report — 28 March 2026</h1>
+    <p>Run started: 08:08:15 UTC &bull; Duration: 1m 35s &bull; Environment: Staging</p>
+
+    <table>
+        <thead>
+            <tr><th>Test Case</th><th>Module</th><th>Duration</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Homepage loads within 2s</td><td>UI</td><td>1.0s</td><td class="pass">PASS</td></tr>
+            <tr><td>Login with valid credentials</td><td>Auth</td><td>1.3s</td><td class="pass">PASS</td></tr>
+            <tr><td>Login with invalid credentials shows error</td><td>Auth</td><td>0.8s</td><td class="pass">PASS</td></tr>
+            <tr>
+                <td>
+                    Dashboard widgets render
+                    <div class="error-detail">
+                        TimeoutError: Widget 'recent-orders' failed to render within 5s<br>
+                        at test_smoke.py:34 in test_dashboard_widgets
+                    </div>
+                </td>
+                <td>UI</td><td>5.1s</td><td class="fail">FAIL</td>
+            </tr>
+            <tr><td>API health endpoint returns 200</td><td>API</td><td>0.4s</td><td class="pass">PASS</td></tr>
+            <tr><td>Logout clears session</td><td>Auth</td><td>0.9s</td><td class="pass">PASS</td></tr>
+        </tbody>
+    </table>
+
+    <div class="summary">
+        <strong>Summary:</strong> 5 passed, 1 failed, 0 skipped — <span class="fail">FAILURES DETECTED</span>
+    </div>
+</body>
+</html>

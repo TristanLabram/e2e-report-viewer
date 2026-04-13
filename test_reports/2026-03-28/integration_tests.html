@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Integration Tests — 2026-03-28</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; color: #333; }
+        h1 { border-bottom: 2px solid #28a745; padding-bottom: 0.5rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #dee2e6; padding: 0.5rem 0.75rem; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .pass { color: #28a745; font-weight: bold; }
+        .fail { color: #dc3545; font-weight: bold; }
+        .skip { color: #ffc107; font-weight: bold; }
+        .summary { margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Integration Test Report — 28 March 2026</h1>
+    <p>Run started: 10:05:30 UTC &bull; Duration: 7m 58s &bull; Environment: Staging</p>
+
+    <table>
+        <thead>
+            <tr><th>Test Case</th><th>Module</th><th>Duration</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>User registers and receives welcome email</td><td>Auth → Email</td><td>4.9s</td><td class="pass">PASS</td></tr>
+            <tr><td>Order placed triggers inventory update</td><td>Orders → Inventory</td><td>3.6s</td><td class="pass">PASS</td></tr>
+            <tr><td>Payment failure triggers order rollback</td><td>Payments → Orders</td><td>7.2s</td><td class="pass">PASS</td></tr>
+            <tr><td>Shipping label generated after payment</td><td>Payments → Shipping</td><td>4.4s</td><td class="pass">PASS</td></tr>
+            <tr><td>Admin dashboard reflects new orders</td><td>Orders → Admin</td><td>3.1s</td><td class="pass">PASS</td></tr>
+            <tr><td>Webhook notifies external CRM on signup</td><td>Auth → Webhooks</td><td>2.8s</td><td class="pass">PASS</td></tr>
+        </tbody>
+    </table>
+
+    <div class="summary">
+        <strong>Summary:</strong> 6 passed, 0 failed, 0 skipped — <span class="pass">ALL PASSED</span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Security Scan — 2026-04-02</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; color: #333; }
+        h1 { border-bottom: 2px solid #dc3545; padding-bottom: 0.5rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #dee2e6; padding: 0.5rem 0.75rem; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .pass { color: #28a745; font-weight: bold; }
+        .fail { color: #dc3545; font-weight: bold; }
+        .skip { color: #ffc107; font-weight: bold; }
+        .summary { margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; }
+        .error-detail { background: #fff3f3; padding: 0.75rem; margin-top: 0.5rem; border-left: 3px solid #dc3545; font-family: monospace; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <h1>Security Scan Report — 2 April 2026</h1>
+    <p>Run started: 04:00:00 UTC &bull; Duration: 15m 42s &bull; Environment: Staging</p>
+
+    <table>
+        <thead>
+            <tr><th>Test Case</th><th>Module</th><th>Duration</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>SQL injection on login form</td><td>Auth</td><td>3.2s</td><td class="pass">PASS</td></tr>
+            <tr><td>XSS on product search field</td><td>Search</td><td>2.8s</td><td class="pass">PASS</td></tr>
+            <tr><td>CSRF token validation on forms</td><td>Auth</td><td>4.1s</td><td class="pass">PASS</td></tr>
+            <tr>
+                <td>
+                    Session fixation after login
+                    <div class="error-detail">
+                        SecurityError: Session ID not rotated after authentication<br>
+                        at test_security.py:78 in test_session_fixation
+                    </div>
+                </td>
+                <td>Auth</td><td>2.5s</td><td class="fail">FAIL</td>
+            </tr>
+            <tr><td>HTTP security headers present</td><td>Infrastructure</td><td>1.1s</td><td class="pass">PASS</td></tr>
+            <tr><td>Rate limiting on auth endpoints</td><td>Auth</td><td>12.3s</td><td class="pass">PASS</td></tr>
+            <tr><td>File upload restricts executable types</td><td>Media</td><td>1.8s</td><td class="pass">PASS</td></tr>
+            <tr>
+                <td>
+                    API keys not exposed in client bundle
+                    <div class="error-detail">
+                        SecurityError: Found potential API key pattern in bundle.js (line 4821)<br>
+                        at test_security.py:134 in test_api_key_exposure
+                    </div>
+                </td>
+                <td>API</td><td>5.6s</td><td class="fail">FAIL</td>
+            </tr>
+            <tr><td>Password hashing uses bcrypt</td><td>Auth</td><td>0.9s</td><td class="pass">PASS</td></tr>
+        </tbody>
+    </table>
+
+    <div class="summary">
+        <strong>Summary:</strong> 7 passed, 2 failed, 0 skipped — <span class="fail">FAILURES DETECTED</span>
+    </div>
+</body>
+</html>

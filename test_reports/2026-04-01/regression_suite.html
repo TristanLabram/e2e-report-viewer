@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Regression Suite — 2026-04-01</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; color: #333; }
+        h1 { border-bottom: 2px solid #dc3545; padding-bottom: 0.5rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #dee2e6; padding: 0.5rem 0.75rem; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .pass { color: #28a745; font-weight: bold; }
+        .fail { color: #dc3545; font-weight: bold; }
+        .skip { color: #ffc107; font-weight: bold; }
+        .summary { margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; }
+        .error-detail { background: #fff3f3; padding: 0.75rem; margin-top: 0.5rem; border-left: 3px solid #dc3545; font-family: monospace; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <h1>Regression Suite — 1 April 2026</h1>
+    <p>Run started: 09:00:00 UTC &bull; Duration: 13m 05s &bull; Environment: Staging</p>
+
+    <table>
+        <thead>
+            <tr><th>Test Case</th><th>Module</th><th>Duration</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>User registration with valid data</td><td>Auth</td><td>2.2s</td><td class="pass">PASS</td></tr>
+            <tr><td>User registration with duplicate email</td><td>Auth</td><td>1.0s</td><td class="pass">PASS</td></tr>
+            <tr><td>Password reset email sends</td><td>Auth</td><td>3.5s</td><td class="pass">PASS</td></tr>
+            <tr><td>Order creation with valid items</td><td>Orders</td><td>4.3s</td><td class="pass">PASS</td></tr>
+            <tr><td>Order total calculation with discount</td><td>Orders</td><td>3.6s</td><td class="pass">PASS</td></tr>
+            <tr>
+                <td>
+                    Payment processing — Stripe sandbox
+                    <div class="error-detail">
+                        ValueError: Invalid currency code 'GBX' — expected ISO 4217 format<br>
+                        at test_payments.py:91 in test_stripe_processing
+                    </div>
+                </td>
+                <td>Payments</td><td>2.1s</td><td class="fail">FAIL</td>
+            </tr>
+            <tr><td>Invoice PDF generation</td><td>Billing</td><td>5.6s</td><td class="pass">PASS</td></tr>
+            <tr><td>Email notification on order complete</td><td>Notifications</td><td>3.9s</td><td class="skip">SKIP</td></tr>
+            <tr><td>Search returns relevant products</td><td>Search</td><td>1.9s</td><td class="pass">PASS</td></tr>
+            <tr><td>Pagination displays correct page count</td><td>UI</td><td>1.4s</td><td class="pass">PASS</td></tr>
+            <tr><td>Multi-currency pricing displays correctly</td><td>UI</td><td>2.7s</td><td class="skip">SKIP</td></tr>
+        </tbody>
+    </table>
+
+    <div class="summary">
+        <strong>Summary:</strong> 8 passed, 1 failed, 2 skipped — <span class="fail">FAILURES DETECTED</span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Regression Suite — 2026-03-27</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; color: #333; }
+        h1 { border-bottom: 2px solid #28a745; padding-bottom: 0.5rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #dee2e6; padding: 0.5rem 0.75rem; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .pass { color: #28a745; font-weight: bold; }
+        .fail { color: #dc3545; font-weight: bold; }
+        .skip { color: #ffc107; font-weight: bold; }
+        .summary { margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Regression Suite — 27 March 2026</h1>
+    <p>Run started: 09:00:00 UTC &bull; Duration: 11m 34s &bull; Environment: Staging</p>
+
+    <table>
+        <thead>
+            <tr><th>Test Case</th><th>Module</th><th>Duration</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>User registration with valid data</td><td>Auth</td><td>2.1s</td><td class="pass">PASS</td></tr>
+            <tr><td>User registration with duplicate email</td><td>Auth</td><td>1.0s</td><td class="pass">PASS</td></tr>
+            <tr><td>Password reset email sends</td><td>Auth</td><td>3.2s</td><td class="pass">PASS</td></tr>
+            <tr><td>Order creation with valid items</td><td>Orders</td><td>4.0s</td><td class="pass">PASS</td></tr>
+            <tr><td>Order total calculation with discount</td><td>Orders</td><td>3.5s</td><td class="pass">PASS</td></tr>
+            <tr><td>Payment processing — Stripe sandbox</td><td>Payments</td><td>5.9s</td><td class="pass">PASS</td></tr>
+            <tr><td>Invoice PDF generation</td><td>Billing</td><td>5.5s</td><td class="pass">PASS</td></tr>
+            <tr><td>Email notification on order complete</td><td>Notifications</td><td>3.8s</td><td class="pass">PASS</td></tr>
+            <tr><td>Search returns relevant products</td><td>Search</td><td>1.8s</td><td class="pass">PASS</td></tr>
+            <tr><td>Pagination displays correct page count</td><td>UI</td><td>1.3s</td><td class="pass">PASS</td></tr>
+        </tbody>
+    </table>
+
+    <div class="summary">
+        <strong>Summary:</strong> 10 passed, 0 failed, 0 skipped — <span class="pass">ALL PASSED</span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Performance Tests — 2026-03-30</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; color: #333; }
+        h1 { border-bottom: 2px solid #ffc107; padding-bottom: 0.5rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #dee2e6; padding: 0.5rem 0.75rem; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .pass { color: #28a745; font-weight: bold; }
+        .fail { color: #dc3545; font-weight: bold; }
+        .skip { color: #ffc107; font-weight: bold; }
+        .summary { margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; }
+        .error-detail { background: #fff3f3; padding: 0.75rem; margin-top: 0.5rem; border-left: 3px solid #dc3545; font-family: monospace; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <h1>Performance Test Report — 30 March 2026</h1>
+    <p>Run started: 03:00:00 UTC &bull; Duration: 22m 14s &bull; Environment: Staging</p>
+
+    <table>
+        <thead>
+            <tr><th>Test Case</th><th>Module</th><th>Duration</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Homepage loads under 500ms (p95)</td><td>UI</td><td>45.2s</td><td class="pass">PASS</td></tr>
+            <tr>
+                <td>
+                    Product search responds under 200ms (p95)
+                    <div class="error-detail">
+                        PerformanceError: p95 latency 342ms exceeds threshold 200ms<br>
+                        at test_performance.py:58 in test_search_latency
+                    </div>
+                </td>
+                <td>Search</td><td>62.3s</td><td class="fail">FAIL</td>
+            </tr>
+            <tr><td>API endpoint throughput > 500 req/s</td><td>API</td><td>120.0s</td><td class="pass">PASS</td></tr>
+            <tr><td>Database query time under 50ms (p99)</td><td>Database</td><td>90.1s</td><td class="pass">PASS</td></tr>
+            <tr><td>Concurrent user session handling (100 users)</td><td>Auth</td><td>180.5s</td><td class="pass">PASS</td></tr>
+            <tr><td>Image upload processing under 3s</td><td>Media</td><td>55.8s</td><td class="skip">SKIP</td></tr>
+            <tr>
+                <td>
+                    Order checkout flow under 2s end-to-end
+                    <div class="error-detail">
+                        PerformanceError: p95 latency 2.8s exceeds threshold 2.0s<br>
+                        at test_performance.py:112 in test_checkout_e2e
+                    </div>
+                </td>
+                <td>Orders</td><td>95.4s</td><td class="fail">FAIL</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="summary">
+        <strong>Summary:</strong> 4 passed, 2 failed, 1 skipped — <span class="fail">FAILURES DETECTED</span>
+    </div>
+</body>
+</html>

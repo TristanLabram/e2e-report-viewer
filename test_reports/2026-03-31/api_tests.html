@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>API Tests — 2026-03-31</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; color: #333; }
+        h1 { border-bottom: 2px solid #28a745; padding-bottom: 0.5rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #dee2e6; padding: 0.5rem 0.75rem; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .pass { color: #28a745; font-weight: bold; }
+        .fail { color: #dc3545; font-weight: bold; }
+        .summary { margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>API Test Report — 31 March 2026</h1>
+    <p>Run started: 08:42:11 UTC &bull; Duration: 2m 55s &bull; Environment: Staging</p>
+
+    <table>
+        <thead>
+            <tr><th>Test Case</th><th>Endpoint</th><th>Duration</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>GET /api/products returns 200</td><td>/api/products</td><td>0.4s</td><td class="pass">PASS</td></tr>
+            <tr><td>GET /api/products/:id returns product</td><td>/api/products/1</td><td>0.3s</td><td class="pass">PASS</td></tr>
+            <tr><td>POST /api/orders creates order</td><td>/api/orders</td><td>1.7s</td><td class="pass">PASS</td></tr>
+            <tr><td>POST /api/orders with invalid data returns 400</td><td>/api/orders</td><td>0.4s</td><td class="pass">PASS</td></tr>
+            <tr><td>GET /api/users requires auth token</td><td>/api/users</td><td>0.3s</td><td class="pass">PASS</td></tr>
+            <tr><td>Rate limiting returns 429 after threshold</td><td>/api/products</td><td>8.1s</td><td class="pass">PASS</td></tr>
+            <tr><td>DELETE /api/products/:id requires admin role</td><td>/api/products/1</td><td>0.3s</td><td class="pass">PASS</td></tr>
+            <tr><td>PATCH /api/users/:id updates profile</td><td>/api/users/1</td><td>0.6s</td><td class="pass">PASS</td></tr>
+        </tbody>
+    </table>
+
+    <div class="summary">
+        <strong>Summary:</strong> 8 passed, 0 failed, 0 skipped — <span class="pass">ALL PASSED</span>
+    </div>
+</body>
+</html>
